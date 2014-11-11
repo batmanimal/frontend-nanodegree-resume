@@ -1,21 +1,14 @@
-var name = "Jennie Kim Eldon";
-var role = "Project Manager";
 
-var formattedName = HTMLheaderName.replace("%data%", name);
-var formattedRole = HTMLheaderRole.replace("%data%", role);
-
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName); // prepend to show at the beginning of the header tag
-
-var skills = ["Project Management", "Communication", "International Affairs", "Data Analysis", "JavaScript", ""];
+var skills = ["Project Management", "Communication", "International Affairs", "Data Analysis", "JavaScript"];
 
 
 var bio = {
-	"name": name,
-	"role": role,
+	"name": "Jennie Kim Eldon",
+	"role": "Project Manager",
 	"contacts": {
 		"email": "thejenniekim@gmail.com",
 		"github": "batmanimal",
+		"blog": "www.batmanimal.com",
 		"location": "San Francisco, CA"
 	},
 	"welcomeMessage" : "Hi, I'm Jennie! I'm very friendly. Like a dog.",
@@ -40,7 +33,7 @@ var education = {
 			"location": "Washington, DC"
 		}
 	],
-	onlineCourses: []
+	"onlineCourses": []
 };
 
 function addCourse (title, school, url) {
@@ -55,11 +48,7 @@ addCourse("Interactive Web Pages with JavaScript", "Treehouse", "http://teamtree
 addCourse("Programming Foundations in Python", "Udacity", "http://www.udacity.com/course/ud036");
 addCourse("Exploratory Data Analysis with R", "Udacity", "http://www.udacity.com/course/ud651");
 addCourse("Intro to HTML and CSS", "Udacity", "https://www.udacity.com/course/ud304");
-addCourse("Build a Simple Android App", "Treehouse", "http://teamtreehouse.com/library/build-a-simple-android-app");
 addCourse("Version Control with Git and Github", "Udacity", "https://www.udacity.com/course/ud775");
-addCourse("The Data Scientist's Toolbox", "Coursera", "https://www.coursera.org/course/datascitoolbox");
-
-// console.log(education.onlineCourses);
 
 
 function displayEducation() {
@@ -89,15 +78,6 @@ function displayEducation() {
 displayEducation();
 
 
-var formattedBioPic = HTMLbioPic.replace("%data%", bio.bioPic);
-var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
-var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
-
-var formattedContactGeneric = HTMLcontactGeneric.replace("%data%", bio.contacts);
-
-var formattedContacts = formattedEmail + formattedGithub;
-
-$("#header").append(formattedBioPic);
 
 
 
@@ -148,19 +128,56 @@ var work = {
 };
 
 
-if(bio.skills.length > 0) {
-	$("#header").append(HTMLskillsStart);
+function displayHeader() {
+	var formattedRole = HTMLheaderRole.replace("%data%", bio.role);	
+	$("#header").prepend(formattedRole);
+
+	var formattedName = HTMLheaderName.replace("%data%", bio.name);
+	$("#header").prepend(formattedName); 
+
+	for (var contact in bio.contacts) {
+		var formattedContact = HTMLcontactGeneric.replace("%data%", bio.contacts[contact]);
+		formattedContact = formattedContact.replace("%contact%", contact);
+		$("#topContacts").append(formattedContact);
+	}
+
+	var formattedBioPic = HTMLbioPic.replace("%data%", bio.bioPic);
+	$("#header").append(formattedBioPic);
+
+	var formattedDescription = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+	$("#header").append(formattedDescription);
+
+	if(bio.skills.length > 0) {
+		$("#header").append(HTMLskillsStart);
+	}
+	for (var i = 0; i < bio.skills.length; i++) {
+		var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
+		$("#skills").append(formattedSkill);
+	}
+
 }
 
-for (var i = 0; i < bio.skills.length; i++) {
-	var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
-		$("#skills").append(formattedSkill);
+var projects = {
+	"projects": [
+		{
+			"title": "Todo App",
+			"description": "Simple todo app for Treehouse Interactive Web Pages course",
+			"images": ["images/todo-app.jpg"]
+		}
+	]
 }
+
+
+displayHeader();
+
+
+
 
 function displayWork() {
 	for(job in work.jobs) {
+		// create new div for work experience 
 		$("#workExperience").append(HTMLworkStart);
-
+		// concat employer and title 
 		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
 		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
 		var formattedEmployerTitle = formattedEmployer + formattedTitle;
@@ -169,21 +186,44 @@ function displayWork() {
 		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
 		$(".work-entry:last").append(formattedDates);
 
+		var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+		$(".work-entry:last").append(formattedLocation);
+
 		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
 		$(".work-entry:last").append(formattedDescription);
 	}
 };
 
+function displayProjects() {
+	for (var project in projects.projects) {
+		$("#projects").append(HTMLprojectStart);
+
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		$(".project-entry:last").append(formattedTitle);
+
+		//var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+		//$(".project-entry:last").append(formattedDates);
+
+		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		$(".project-entry:last").append(formattedDescription);
+
+		if (projects.projects[project].images.length > 0) {
+			for (var image in projects.projects[project].images) {
+				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+				$(".project-entry:last").append(formattedImage);
+			}
+		}
+	}
+}
 displayWork();
+displayProjects();
+
 
 
 
 $("#main").append(work.position);
 
 $("#mapDiv").append(googleMap);
-
-//$("#mapDiv").append(googleMap);
-
 
 $("#letsConnect").append(formattedContacts);
 

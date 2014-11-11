@@ -1,7 +1,4 @@
-
 var skills = ["Project Management", "Communication", "International Affairs", "Data Analysis", "JavaScript"];
-
-
 var bio = {
 	"name": "Jennie Kim Eldon",
 	"role": "Project Manager",
@@ -35,7 +32,6 @@ var education = {
 	],
 	"onlineCourses": []
 };
-
 
 var work = {
 	"jobs": [
@@ -138,7 +134,6 @@ function displayHeader() {
 
 }
 
-
 function displayWork() {
 	for(job in work.jobs) {
 		// create new div for work experience 
@@ -158,7 +153,7 @@ function displayWork() {
 		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
 		$(".work-entry:last").append(formattedDescription);
 	}
-};
+}
 
 function displayProjects() {
 	for (var key in projects.projects) {
@@ -166,9 +161,6 @@ function displayProjects() {
 
 		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[key].title);
 		$(".project-entry:last").append(formattedTitle);
-
-		//var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
-		//$(".project-entry:last").append(formattedDates);
 
 		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[key].description);
 		$(".project-entry:last").append(formattedDescription);
@@ -203,14 +195,7 @@ function displayEducation() {
 			$(".education-entry:last").append(formattedMajor);
 		}
 	}
-}
-
-// when I use ("#education").append() the online classes header does not appear. 
-// this method appears but is indented 
-//	$(".onlineClass-entry:last").append(HTMLonlineClasses);
-
-	// added this to make the Online Classes header appear in proper alignment 
-function displayOnlineClasses() {
+	// adds online courses under the education field 
 	$("#education").append(HTMLonlineClasses);
 
 	for(var key in education.onlineCourses) {
@@ -224,17 +209,25 @@ function displayOnlineClasses() {
 	} 
 }
 
+function displayFooter () {
+	for (var contact in bio.contacts) {
+		var formattedContact = HTMLcontactGeneric.replace("%data%", bio.contacts[contact]);
+		formattedContact = formattedContact.replace("%contact%", contact);
+		$("#footerContacts").append(formattedContact);
+	}
+}
+
+
 displayEducation();
-displayOnlineClasses();
 displayHeader();
 displayWork();
 displayProjects();
-
+displayFooter();
 
 $("#main").append(work.position);
 
 $("#mapDiv").append(googleMap);
 
-// $("#letsConnect").append(formattedContacts);
+$("#letsConnect").append(formattedContacts);
 
 

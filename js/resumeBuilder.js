@@ -184,24 +184,32 @@ function displayProjects() {
 
 
 function displayEducation() {
-	for(var key in education.schools) {
+	for(var school in education.schools) {
 		$("#education").append(HTMLschoolStart);
 
-		var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[key].name);
-		var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[key].degree);
+		var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[school].name);
+		var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
 		var formattedSchoolAndDegree = formattedSchoolName + formattedSchoolDegree;
 		$(".education-entry:last").append(formattedSchoolAndDegree);
 		
-		var formattedDates = HTMLschoolDates.replace("%data%", education.schools[key].dates);
+		var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
 		$(".education-entry:last").append(formattedDates);
 
-		var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[key].location);
+		var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
 		$(".education-entry:last").append(formattedLocation);
+		
+		for (var major in education.schools[school].majors) {
+			var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].majors[major]);
+			$(".education-entry:last").append(formattedMajor);
+		}
 	} 
 
+// when I use ("#education").append() the online classes header does not appear. 
+// this method appears but is indented 
 	$(".education-entry:last").append(HTMLonlineClasses);
 
 	for(var key in education.onlineCourses) {
+		$("#education").append(HTMLschoolStart);
 
 		var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[key].title);
 		var formattedOnlineSchool= HTMLonlineSchool.replace("%data%", education.onlineCourses[key].school);
@@ -221,6 +229,6 @@ $("#main").append(work.position);
 
 $("#mapDiv").append(googleMap);
 
-$("#letsConnect").append(formattedContacts);
+// $("#letsConnect").append(formattedContacts);
 
 

@@ -1,5 +1,5 @@
 var name = "Jennie Kim Eldon";
-var role = "Aspiring Hacker";
+var role = "Project Manager";
 
 var formattedName = HTMLheaderName.replace("%data%", name);
 var formattedRole = HTMLheaderRole.replace("%data%", role);

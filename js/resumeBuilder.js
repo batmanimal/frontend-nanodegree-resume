@@ -202,14 +202,19 @@ function displayEducation() {
 			var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].majors[major]);
 			$(".education-entry:last").append(formattedMajor);
 		}
-	} 
+	}
+}
 
 // when I use ("#education").append() the online classes header does not appear. 
 // this method appears but is indented 
-	$(".education-entry:last").append(HTMLonlineClasses);
+//	$(".onlineClass-entry:last").append(HTMLonlineClasses);
+
+	// added this to make the Online Classes header appear in proper alignment 
+function displayOnlineClasses() {
+	$("#education").append(HTMLonlineClasses);
 
 	for(var key in education.onlineCourses) {
-		$("#education").append(HTMLschoolStart);
+		$("#education").append(HTMLonlineClassesStart);
 
 		var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[key].title);
 		var formattedOnlineSchool= HTMLonlineSchool.replace("%data%", education.onlineCourses[key].school);
@@ -220,6 +225,7 @@ function displayEducation() {
 }
 
 displayEducation();
+displayOnlineClasses();
 displayHeader();
 displayWork();
 displayProjects();

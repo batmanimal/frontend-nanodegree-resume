@@ -1,4 +1,9 @@
+// TODO: Try combining all objects into a single JSON object that can be passed through a resume builder like jsonresume.org   
+
+// create skills array to display in the header that will be referenced in the bio object
 var skills = ["Project Management", "Communication", "International Affairs", "Data Analysis", "JavaScript"];
+
+// create bio object to store personal attributes 
 var bio = {
 	"name": "Jennie Kim Eldon",
 	"role": "Project Manager",
@@ -13,6 +18,7 @@ var bio = {
 	"bioPic" : "images/jk.jpg"
 };
 
+// create education object to store colleges and online coursework 
 var education = {
 	"schools": [
 		{ 
@@ -30,9 +36,28 @@ var education = {
 			"location": "Washington, DC"
 		}
 	],
+	// online courses will be stored as objects in this array
 	"onlineCourses": []
 };
 
+
+// Adds new course objects to the onlineCourses array in the education object
+function addCourse (title, school, url) {
+	var courseObject = {title: title, school: school, url: url};
+	education.onlineCourses.push(courseObject);
+}
+
+// invoke addCourse function to push new course objects into the onlineCourses array 
+addCourse("JavaScript Basics", "Udacity", "http://www.udacity.com/course/ud804");
+addCourse("Object-Oriented JavaScript", "Udacity", "http://www.udacity.com/course/ud015");
+addCourse("JavaScript Roadtrip, Parts 1-3", "Codeschool", "http://javascript-roadtrip-part3.codeschool.com");
+addCourse("Interactive Web Pages with JavaScript", "Treehouse", "http://teamtreehouse.com/library/interactive-web-pages-with-javascript");
+addCourse("Programming Foundations in Python", "Udacity", "http://www.udacity.com/course/ud036");
+addCourse("Exploratory Data Analysis with R", "Udacity", "http://www.udacity.com/course/ud651");
+addCourse("Intro to HTML and CSS", "Udacity", "https://www.udacity.com/course/ud304");
+addCourse("Version Control with Git and Github", "Udacity", "https://www.udacity.com/course/ud775");
+
+// create work object to store job objects within an array
 var work = {
 	"jobs": [
 		{
@@ -79,6 +104,7 @@ var work = {
 	]
 };
 
+// create object to store projects within an array
 var projects = {
 	"projects": [
 		{
@@ -89,22 +115,7 @@ var projects = {
 	]
 }
 
-// Adds new course objects to the course array in the education object
-function addCourse (title, school, url) {
-	var courseObject = {title: title, school: school, url: url};
-	education.onlineCourses.push(courseObject);
-}
-
-addCourse("JavaScript Basics", "Udacity", "http://www.udacity.com/course/ud804");
-addCourse("Object-Oriented JavaScript", "Udacity", "http://www.udacity.com/course/ud015");
-addCourse("JavaScript Roadtrip, Parts 1-3", "Codeschool", "http://javascript-roadtrip-part3.codeschool.com");
-addCourse("Interactive Web Pages with JavaScript", "Treehouse", "http://teamtreehouse.com/library/interactive-web-pages-with-javascript");
-addCourse("Programming Foundations in Python", "Udacity", "http://www.udacity.com/course/ud036");
-addCourse("Exploratory Data Analysis with R", "Udacity", "http://www.udacity.com/course/ud651");
-addCourse("Intro to HTML and CSS", "Udacity", "https://www.udacity.com/course/ud304");
-addCourse("Version Control with Git and Github", "Udacity", "https://www.udacity.com/course/ud775");
-
-
+// build function to display the header with data from the bio object
 function displayHeader() {
 	var formattedRole = HTMLheaderRole.replace("%data%", bio.role);	
 	$("#header").prepend(formattedRole);
@@ -134,6 +145,7 @@ function displayHeader() {
 
 }
 
+// build function to display work history with data from work object
 function displayWork() {
 	for(job in work.jobs) {
 		// create new div for work experience 
@@ -155,6 +167,7 @@ function displayWork() {
 	}
 }
 
+// build function to display project portfolio with data from the projects object
 function displayProjects() {
 	for (var key in projects.projects) {
 		$("#projects").append(HTMLprojectStart);
@@ -174,7 +187,7 @@ function displayProjects() {
 	}
 }
 
-
+// build function to display education and online course info with data from the education object 
 function displayEducation() {
 	for(var school in education.schools) {
 		$("#education").append(HTMLschoolStart);
@@ -209,6 +222,7 @@ function displayEducation() {
 	} 
 }
 
+// build function to display contact info in the footer with data from the bio.contacts object 
 function displayFooter () {
 	for (var contact in bio.contacts) {
 		var formattedContact = HTMLcontactGeneric.replace("%data%", bio.contacts[contact]);
@@ -217,17 +231,17 @@ function displayFooter () {
 	}
 }
 
-
+// invoke display functions 
 displayEducation();
 displayHeader();
 displayWork();
 displayProjects();
 displayFooter();
 
-$("#main").append(work.position);
+// 
+//$("#main").append(work.position);
 
 $("#mapDiv").append(googleMap);
 
 $("#letsConnect").append(formattedContacts);
-
 

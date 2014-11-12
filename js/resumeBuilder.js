@@ -142,7 +142,6 @@ function displayHeader() {
 		var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
 		$("#skills").append(formattedSkill);
 	}
-
 }
 
 // build function to display work history with data from work object
@@ -238,10 +237,7 @@ displayWork();
 displayProjects();
 displayFooter();
 
-// 
-//$("#main").append(work.position);
-
+// add Google Map to resume
 $("#mapDiv").append(googleMap);
 
-$("#letsConnect").append(formattedContacts);
 
